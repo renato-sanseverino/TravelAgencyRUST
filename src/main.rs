@@ -2,10 +2,10 @@ mod utils;
 mod schema;
 mod models;
 mod domain;
+mod repository;
 mod handlers;
 
 
-// use dotenv::dotenv;
 use handlers::client;
 use handlers::itinerary;
 use actix_cors::Cors;

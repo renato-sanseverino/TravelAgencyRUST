@@ -10,7 +10,8 @@ actix-cors = "0.6.5"
 actix-web = "4.4.0"
 bigdecimal = { version = "0.4.2", features = ["serde"] }
 chrono = { version = "0.4.31", features = ["serde"] }
-dotenv = "0.15.0"
+tokio = { version = "1.27.0", features = ["full"] }
 serde = { version = "1.0.193", features = ["derive"] }
 sqlx = { version = "0.7.3", features = ["runtime-async-std-native-tls", "postgres", "chrono", "bigdecimal"] }
 thiserror = "1.0.51"
+dotenv = "0.15.0"

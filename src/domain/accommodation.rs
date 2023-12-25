@@ -8,6 +8,7 @@ pub struct Charge {
     value: BigDecimal,
 }
 
+#[derive(Default)]
 pub struct Accommodation {
     pub id: Option<i32>,
     pub hotel: String,
@@ -18,21 +19,25 @@ pub struct Accommodation {
     pub charges: Vec<Charge>,
 }
 
-impl Accommodation {
-    pub fn new(hotel: String, guests: i32, checkin: NaiveDate, checkout: Option<NaiveDate>, room: Option<i32>) -> Result<Accommodation, DomainError> {
-        let obj = Accommodation {
-            id: None, // alterar o tipo para Option<String>, gerar UUID
-            hotel,
-            guests,
-            checkin,
-            checkout,
-            room,
-            charges: Vec::new(),
-        };
+pub fn NewAccommodation(hotel: String, guests: i32, checkin: NaiveDate, checkout: Option<NaiveDate>, room: Option<i32>) -> Result<Accommodation, DomainError> {
 
-        Ok(obj)
+    let obj = Accommodation {
+        id: None, // alterar o tipo para Option<String>, gerar UUID
+        hotel,
+        guests,
+        checkin,
+        checkout,
+        room,
+        charges: Vec::new(),
+    };
+
+    if !obj.validate() {
+        return Err(DomainError::ValidationError);
     }
+    Ok(obj)
+}
 
+impl Accommodation {
     pub fn add_charge(&mut self, charge: Charge) -> Result<(), DomainError>{
         if self.charges.contains(&charge) {
             return Err(DomainError::DuplicationError)
