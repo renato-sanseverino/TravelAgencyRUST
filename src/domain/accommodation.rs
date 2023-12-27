@@ -3,12 +3,12 @@ use bigdecimal::BigDecimal;
 use crate::utils::domainErrors::DomainError;
 
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 pub struct Charge {
     value: BigDecimal,
 }
 
-#[derive(Default)]
+#[derive(Default, Debug)]
 pub struct Accommodation {
     pub id: Option<i32>,
     pub hotel: String,

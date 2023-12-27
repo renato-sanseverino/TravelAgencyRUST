@@ -2,6 +2,7 @@ use bigdecimal::BigDecimal;
 use crate::utils::domainErrors::DomainError;
 
 
+#[derive(Default, Debug)]
 pub struct Travelinsurance {
     pub id: Option<i32>,
     pub client_id: i32,
