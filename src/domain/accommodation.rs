@@ -19,7 +19,7 @@ pub struct Accommodation {
     pub charges: Vec<Charge>,
 }
 
-pub fn NewAccommodation(hotel: String, guests: i32, checkin: NaiveDate, checkout: Option<NaiveDate>, room: Option<i32>) -> Result<Accommodation, DomainError> {
+pub fn new_accommodation(hotel: String, guests: i32, checkin: NaiveDate, checkout: Option<NaiveDate>, room: Option<i32>) -> Result<Accommodation, DomainError> {
 
     let obj = Accommodation {
         id: None, // alterar o tipo para Option<String>, gerar UUID
