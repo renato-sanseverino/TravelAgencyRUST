@@ -1,13 +1,13 @@
 use sqlx::error::Error;
+use async_trait::async_trait;
 
 
-// TODO: verificar a lib async_trait, pois a linguagem não tem suporte nativo
-// pub trait Repository<T> {
-//    async fn save(&mut self, payload: T) -> Result<(), Error>;
-
+// Na proxima versão de RUST talvez seja incluido suporte a traits assincronas
+// remover a lib async_trait caso a linguagem forneça suporte nativo
+#[async_trait]
 pub trait Repository<T> {
-    fn save(&mut self, payload: T) -> Result<(), Error>;
-    fn get_by_id(&self, id: i32) -> Option<T>;
-    fn remove(&mut self, id: i32) -> Result<(), Error>;
-    fn patch(&mut self, id: i32, payload: T) -> Result<(), Error>;
+    async fn save(&mut self, payload: T) -> Result<(), Error>;
+    async fn get_by_id(&self, id: i32) -> Result<Option<T>, Error>;
+    async fn remove(&mut self, id: i32) -> Result<(), Error>;
+    async fn patch(&mut self, id: i32, payload: T) -> Result<(), Error>;
 }

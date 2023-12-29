@@ -1,42 +1,42 @@
 use sqlx::error::Error;
 use sqlx::postgres::PgPool;
+use async_trait::async_trait;
 use crate::repository::repository::Repository;
 use crate::domain::travel_insurance::Travelinsurance;
 
 
 pub struct InsuranceRepository {
     pool: PgPool,
-    runtime: tokio::runtime::Runtime,
 }
 
 impl InsuranceRepository {
     pub fn new(pool: PgPool) -> Self {
         InsuranceRepository {
             pool: pool,
-            runtime: tokio::runtime::Runtime::new().unwrap(),
         }
     }
 }
 
+#[async_trait]
 impl Repository<Travelinsurance> for InsuranceRepository {
-    fn save(&mut self, payload: Travelinsurance) -> Result<(), Error> {
-        // TODO: implementar usando sqlx e tokio
+    async fn save(&mut self, payload: Travelinsurance) -> Result<(), Error> {
+        // TODO: implementar usando sqlx
         Ok(())
     }
 
-    fn get_by_id(&self, id: i32) -> Option<Travelinsurance> {
+    async fn get_by_id(&self, id: i32) -> Result<Option<Travelinsurance>, Error> {
         let insurance = Travelinsurance::default();
-        // TODO: implementar usando sqlx e tokio
-        Some(insurance)
+        // TODO: implementar usando sqlx
+        Ok(Some(insurance))
     }
 
-    fn remove(&mut self, id: i32) -> Result<(), Error> {
-        // TODO: implementar usando sqlx e tokio
+    async fn remove(&mut self, id: i32) -> Result<(), Error> {
+        // TODO: implementar usando sqlx
         Ok(())
     }
 
-    fn patch(&mut self, id: i32, payload: Travelinsurance) -> Result<(), Error> {
-        // TODO: implementar usando sqlx e tokio
+    async fn patch(&mut self, id: i32, payload: Travelinsurance) -> Result<(), Error> {
+        // TODO: implementar usando sqlx
         Ok(())
     }
 }
