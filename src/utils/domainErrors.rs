@@ -10,6 +10,6 @@ pub enum DomainError {
     DuplicationError,
     #[error("Not enought rooms available")]
     NotEnoughError,
-    #[error("Room is not available for booking")]
+    #[error("Not available for booking")]
     NotAvailableError,
 }
