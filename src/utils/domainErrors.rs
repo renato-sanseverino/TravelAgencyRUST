@@ -8,4 +8,8 @@ pub enum DomainError {
     NotFoundError,
     #[error("Item is already in the list")]
     DuplicationError,
+    #[error("Not enought rooms available")]
+    NotEnoughError,
+    #[error("Room is not available for booking")]
+    NotAvailableError,
 }
