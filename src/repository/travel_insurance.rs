@@ -19,7 +19,7 @@ impl InsuranceRepository {
 
 #[async_trait]
 impl Repository<Travelinsurance> for InsuranceRepository {
-    async fn save(&mut self, payload: Travelinsurance) -> Result<(), Error> {
+    async fn insert(&mut self, payload: Travelinsurance) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }
@@ -30,7 +30,7 @@ impl Repository<Travelinsurance> for InsuranceRepository {
         Ok(Some(insurance))
     }
 
-    async fn remove(&mut self, id: i32) -> Result<(), Error> {
+    async fn delete(&mut self, id: i32) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }

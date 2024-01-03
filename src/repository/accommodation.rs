@@ -19,7 +19,7 @@ impl AccommodationRepository {
 
 #[async_trait]
 impl Repository<Accommodation> for AccommodationRepository {
-    async fn save(&mut self, payload: Accommodation) -> Result<(), Error> {
+    async fn insert(&mut self, payload: Accommodation) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }
@@ -39,7 +39,7 @@ impl Repository<Accommodation> for AccommodationRepository {
         Ok(Some(accommodation))
     }
 
-    async fn remove(&mut self, id: i32) -> Result<(), Error> {
+    async fn delete(&mut self, id: i32) -> Result<(), Error> {
         let query_result = sqlx::query!("DELETE FROM accommodations WHERE id = $1", id)
             .execute(&self.pool)
             .await
