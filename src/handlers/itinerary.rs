@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use crate::models::*;
 // use diesel::prelude::*;      // diesel ORM
 use sqlx::postgres::PgPool;     // sqlx
@@ -33,7 +34,7 @@ async fn create(pool: web::Data<PgPool>, payload: web::Json<Itinerary>) -> Resul
 }
 
 #[get("/itineraries/{itinerary_id}")]
-async fn select(pool: web::Data<PgPool>, itinerary_id: web::Path<i32>) -> Result<HttpResponse, Error> {
+async fn select(pool: web::Data<PgPool>, itinerary_id: web::Path<Uuid>) -> Result<HttpResponse, Error> {
     let result = sqlx::query_as!(Itinerary, "SELECT * FROM itinerary WHERE id = $1", itinerary_id.into_inner())
     .fetch_optional(&**pool)
     .await;
@@ -49,7 +50,7 @@ async fn select(pool: web::Data<PgPool>, itinerary_id: web::Path<i32>) -> Result
 }
 
 #[patch("/itineraries/{itinerary_id}")]
-async fn update(pool: web::Data<PgPool>, itinerary_id: web::Path<i32>, payload: web::Json<Itinerary>) -> Result<HttpResponse, Error> {
+async fn update(pool: web::Data<PgPool>, itinerary_id: web::Path<Uuid>, payload: web::Json<Itinerary>) -> Result<HttpResponse, Error> {
     let itinerary_payload: Itinerary = payload.into_inner();
 
     let updated_itinerary: Itinerary = sqlx::query_as!(Itinerary, "UPDATE itinerary
@@ -69,7 +70,7 @@ async fn update(pool: web::Data<PgPool>, itinerary_id: web::Path<i32>, payload: 
 }
 
 #[delete("/itineraries/{itinerary_id}")]
-async fn delete(pool: web::Data<PgPool>, itinerary_id: web::Path<i32>) -> Result<HttpResponse, Error> {
+async fn delete(pool: web::Data<PgPool>, itinerary_id: web::Path<Uuid>) -> Result<HttpResponse, Error> {
     let query_result = sqlx::query!("DELETE FROM itinerary WHERE id = $1", itinerary_id.into_inner())
         .execute(&**pool)
     .await

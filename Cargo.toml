@@ -12,8 +12,9 @@ bigdecimal = { version = "0.4.2", features = ["serde"] }
 chrono = { version = "0.4.31", features = ["serde"] }
 tokio = { version = "1.27.0", features = ["full"] }
 serde = { version = "1.0.193", features = ["derive"] }
-sqlx = { version = "0.7.3", features = ["runtime-async-std-native-tls", "postgres", "chrono", "bigdecimal"] }
+sqlx = { version = "0.7.3", features = ["runtime-async-std-native-tls", "postgres", "chrono", "bigdecimal", "uuid"] }
 thiserror = "1.0.51"
-dotenv = "0.15.0"
 async-trait = "0.1.75"
 reqwest = "0.11.23"
+uuid = { version = "1.6.1", features = ["v4", "serde"] }
+dotenv = "0.15.0"

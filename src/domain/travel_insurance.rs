@@ -1,10 +1,11 @@
+use uuid::Uuid;
 use bigdecimal::BigDecimal;
 use crate::utils::domainErrors::DomainError;
 
 
 #[derive(Default, Debug)]
 pub struct Travelinsurance {
-    pub id: Option<i32>,
+    pub id: Option<Uuid>,
     pub client_id: i32,
     pub purpose_of_trip: String,
     pub luggage: Option<BigDecimal>,
@@ -15,7 +16,7 @@ pub struct Travelinsurance {
 pub fn new_insurance(client_id: i32, purpose_of_trip: String, luggage: Option<BigDecimal>, medical_cover: Option<BigDecimal>, price_total: BigDecimal) -> Result<Travelinsurance, DomainError> {
 
     let obj = Travelinsurance {
-        id: None, // alterar o tipo para Option<String>, gerar UUID
+        id: Some(Uuid::new_v4()),   // evitar a duplicação de registros com UUID
         client_id,
         purpose_of_trip,
         luggage,

@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use sqlx::error::Error;
 use sqlx::postgres::PgPool;
 use async_trait::async_trait;
@@ -24,7 +25,7 @@ impl Repository<Accommodation> for AccommodationRepository {
         Ok(())
     }
 
-    async fn get_by_id(&self, id: i32) -> Result<Option<Accommodation>, Error> {
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<Accommodation>, Error> {
         // TODO: implementar usando sqlx
         let accommodation = Accommodation::default();
         /*
@@ -39,7 +40,7 @@ impl Repository<Accommodation> for AccommodationRepository {
         Ok(Some(accommodation))
     }
 
-    async fn delete(&mut self, id: i32) -> Result<(), Error> {
+    async fn delete(&mut self, id: Uuid) -> Result<(), Error> {
         let query_result = sqlx::query!("DELETE FROM accommodations WHERE id = $1", id)
             .execute(&self.pool)
             .await
@@ -48,7 +49,7 @@ impl Repository<Accommodation> for AccommodationRepository {
         Ok(())
     }
 
-    async fn patch(&mut self, id: i32, payload: Accommodation) -> Result<(), Error> {
+    async fn patch(&mut self, id: Uuid, payload: Accommodation) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }

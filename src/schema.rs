@@ -3,7 +3,7 @@
 /*
 diesel::table! {
     accommodations (id) {
-        id -> Int4,
+        id -> Uuid,
         #[max_length = 120]
         hotel -> Varchar,
         guests -> Int4,
@@ -15,7 +15,7 @@ diesel::table! {
 
 diesel::table! {
     client (id) {
-        id -> Int4,
+        id -> Uuid,
         #[max_length = 120]
         name -> Varchar,
         #[max_length = 200]
@@ -30,8 +30,8 @@ diesel::table! {
 
 diesel::table! {
     eventtickets (id) {
-        id -> Int4,
-        client_id -> Int4,
+        id -> Uuid,
+        client_id -> Uuid,
         #[max_length = 80]
         description -> Varchar,
         #[max_length = 80]
@@ -42,7 +42,7 @@ diesel::table! {
 
 diesel::table! {
     guidedtours (id) {
-        id -> Int4,
+        id -> Uuid,
         #[max_length = 120]
         description -> Varchar,
         date -> Date,
@@ -52,7 +52,7 @@ diesel::table! {
 
 diesel::table! {
     itinerary (id) {
-        id -> Int4,
+        id -> Uuid,
         #[max_length = 120]
         destination -> Varchar,
         departure -> Date,
@@ -64,8 +64,8 @@ diesel::table! {
 
 diesel::table! {
     travelinsurance (id) {
-        id -> Int4,
-        client_id -> Int4,
+        id -> Uuid,
+        client_id -> Uuid,
         #[max_length = 80]
         purposeOfTrip -> Varchar,
         luggage -> Nullable<Numeric>,
@@ -76,16 +76,16 @@ diesel::table! {
 
 diesel::table! {
     travelpackages (id) {
-        id -> Int4,
+        id -> Uuid,
         #[max_length = 120]
         description -> Varchar,
-        client_id -> Int4,
+        client_id -> Uuid,
         #[max_length = 80]
         country -> Varchar,
         #[max_length = 80]
         city -> Varchar,
-        accommodation_id -> Nullable<Int4>,
-        insurance_id -> Nullable<Int4>,
+        accommodation_id -> Nullable<Uuid>,
+        insurance_id -> Nullable<Uuid>,
         price_total -> Numeric,
     }
 }

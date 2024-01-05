@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use sqlx::error::Error;
 use sqlx::postgres::PgPool;
 use async_trait::async_trait;
@@ -24,18 +25,18 @@ impl Repository<Travelinsurance> for InsuranceRepository {
         Ok(())
     }
 
-    async fn get_by_id(&self, id: i32) -> Result<Option<Travelinsurance>, Error> {
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<Travelinsurance>, Error> {
         let insurance = Travelinsurance::default();
         // TODO: implementar usando sqlx
         Ok(Some(insurance))
     }
 
-    async fn delete(&mut self, id: i32) -> Result<(), Error> {
+    async fn delete(&mut self, id: Uuid) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }
 
-    async fn patch(&mut self, id: i32, payload: Travelinsurance) -> Result<(), Error> {
+    async fn patch(&mut self, id: Uuid, payload: Travelinsurance) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }

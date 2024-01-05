@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use chrono::NaiveDate;
 use bigdecimal::BigDecimal;
 use crate::utils::domainErrors::DomainError;
@@ -10,7 +11,7 @@ pub struct Charge {
 
 #[derive(Default, Debug)]
 pub struct Accommodation {
-    pub id: Option<i32>,
+    pub id: Option<Uuid>,
     pub hotel: String,
     pub guests: i32,
     pub checkin: NaiveDate,
@@ -20,9 +21,8 @@ pub struct Accommodation {
 }
 
 pub fn new_accommodation(hotel: String, guests: i32, checkin: NaiveDate, checkout: Option<NaiveDate>, room: Option<i32>) -> Result<Accommodation, DomainError> {
-
     let obj = Accommodation {
-        id: None, // alterar o tipo para Option<String>, gerar UUID
+        id: Some(Uuid::new_v4()),   // evitar a duplicação de registros com UUID
         hotel,
         guests,
         checkin,

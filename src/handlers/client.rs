@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use crate::models::*;
 // use diesel::prelude::*;      // diesel ORM
 use sqlx::postgres::PgPool;     // sqlx
@@ -34,7 +35,7 @@ async fn create(pool: web::Data<PgPool>, payload: web::Json<Client>) -> Result<H
 }
 
 #[get("/clients/{client_id}")]
-async fn select(pool: web::Data<PgPool>, client_id: web::Path<i32>) -> Result<HttpResponse, Error> {
+async fn select(pool: web::Data<PgPool>, client_id: web::Path<Uuid>) -> Result<HttpResponse, Error> {
     let result = sqlx::query_as!(Client, "SELECT * FROM client WHERE id = $1", client_id.into_inner())
     .fetch_optional(&**pool)
     .await;
@@ -50,7 +51,7 @@ async fn select(pool: web::Data<PgPool>, client_id: web::Path<i32>) -> Result<Ht
 }
 
 #[patch("/clients/{client_id}")]
-async fn update(pool: web::Data<PgPool>, client_id: web::Path<i32>, payload: web::Json<Client>) -> Result<HttpResponse, Error> {
+async fn update(pool: web::Data<PgPool>, client_id: web::Path<Uuid>, payload: web::Json<Client>) -> Result<HttpResponse, Error> {
     let client_payload: Client = payload.into_inner();
 
     let updated_client: Client = sqlx::query_as!(Client, "UPDATE client
@@ -71,7 +72,7 @@ async fn update(pool: web::Data<PgPool>, client_id: web::Path<i32>, payload: web
 }
 
 #[delete("/clients/{client_id}")]
-async fn delete(pool: web::Data<PgPool>, client_id: web::Path<i32>) -> Result<HttpResponse, Error> {
+async fn delete(pool: web::Data<PgPool>, client_id: web::Path<Uuid>) -> Result<HttpResponse, Error> {
     let query_result = sqlx::query!("DELETE FROM client WHERE id = $1", client_id.into_inner())
         .execute(&**pool)
     .await

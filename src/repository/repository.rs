@@ -1,3 +1,4 @@
+use uuid::Uuid;
 use sqlx::error::Error;
 use async_trait::async_trait;
 
@@ -7,7 +8,7 @@ use async_trait::async_trait;
 #[async_trait]
 pub trait Repository<T> {
     async fn insert(&mut self, payload: T) -> Result<(), Error>;
-    async fn get_by_id(&self, id: i32) -> Result<Option<T>, Error>;
-    async fn delete(&mut self, id: i32) -> Result<(), Error>;
-    async fn patch(&mut self, id: i32, payload: T) -> Result<(), Error>;
+    async fn get_by_id(&self, id: Uuid) -> Result<Option<T>, Error>;
+    async fn delete(&mut self, id: Uuid) -> Result<(), Error>;
+    async fn patch(&mut self, id: Uuid, payload: T) -> Result<(), Error>;
 }
