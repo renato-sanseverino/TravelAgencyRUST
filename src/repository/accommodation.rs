@@ -21,7 +21,7 @@ impl AccommodationRepository {
 #[async_trait]
 impl Repository<Accommodation> for AccommodationRepository {
     async fn insert(&self, payload: Accommodation) -> Result<Accommodation, Error> {
-        let inserted: Accommodation = sqlx::query_as!(Accommodation, "INSERT INTO accommodations (id, hotel, guests, checkin, checkout, room)
+        let inserted = sqlx::query_as!(Accommodation, "INSERT INTO accommodations (id, hotel, guests, checkin, checkout, room)
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING id, hotel, guests, checkin, checkout, room",
         payload.id,
@@ -37,7 +37,6 @@ impl Repository<Accommodation> for AccommodationRepository {
     }
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Accommodation>, Error> {
-        // TODO: implementar usando sqlx
         match sqlx::query_as!(Accommodation,"SELECT * FROM accommodations WHERE id = $1", id)
         .fetch_optional(&self.pool)
         .await
@@ -47,13 +46,13 @@ impl Repository<Accommodation> for AccommodationRepository {
         }
     }
 
-    async fn delete(&self, id: Uuid) -> Result<(), Error> {
+    async fn delete(&self, id: Uuid) -> Result<u64, Error> {
         let query_result = sqlx::query!("DELETE FROM accommodations WHERE id = $1", id)
             .execute(&self.pool)
             .await
             .map_err(Error::from)?;
 
-        Ok(())
+        Ok(query_result.rows_affected())
     }
 
     async fn patch(&self, id: Uuid, payload: Accommodation) -> Result<(), Error> {

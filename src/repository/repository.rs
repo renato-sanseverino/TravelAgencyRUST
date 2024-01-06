@@ -9,6 +9,6 @@ use async_trait::async_trait;
 pub trait Repository<T> {
     async fn insert(&self, payload: T) -> Result<T, Error>;
     async fn get_by_id(&self, id: Uuid) -> Result<Option<T>, Error>;
-    async fn delete(&self, id: Uuid) -> Result<(), Error>;
+    async fn delete(&self, id: Uuid) -> Result<u64, Error>;
     async fn patch(&self, id: Uuid, payload: T) -> Result<(), Error>;
 }
