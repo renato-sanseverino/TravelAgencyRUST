@@ -6,6 +6,7 @@ mod repository;
 mod handlers;
 
 
+use dotenv::dotenv;
 use chrono::NaiveDate;
 use handlers::client;
 use handlers::itinerary;
@@ -30,7 +31,7 @@ fn check_domain() {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // dotenv().expect("Unable to load environment variables from .env file");
+    dotenv().expect("Unable to load environment variables from .env file");
     let database_url: String = std::env::var("DATABASE_URL").expect("Unable to read DATABASE_URL env var");
     check_domain();
 
@@ -60,6 +61,8 @@ async fn main() -> std::io::Result<()> {
                     .service(itinerary::select)
                     .service(itinerary::update)
                     .service(itinerary::delete)
+                    .service(handlers::accommodation::get_accommodation)
+                    .service(handlers::accommodation::post_accommodation)
             )
     })
     .bind(("0.0.0.0", 8080))?

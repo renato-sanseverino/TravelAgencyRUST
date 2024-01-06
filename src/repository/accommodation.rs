@@ -11,36 +11,43 @@ pub struct AccommodationRepository {
 }
 
 impl AccommodationRepository {
-    pub fn new(pool: PgPool) -> Self {
+    pub fn new(pool: &PgPool) -> Self {
         AccommodationRepository {
-            pool: pool,
+            pool: pool.clone(),
         }
     }
 }
 
 #[async_trait]
 impl Repository<Accommodation> for AccommodationRepository {
-    async fn insert(&mut self, payload: Accommodation) -> Result<(), Error> {
-        // TODO: implementar usando sqlx
-        Ok(())
+    async fn insert(&self, payload: Accommodation) -> Result<Accommodation, Error> {
+        let inserted: Accommodation = sqlx::query_as!(Accommodation, "INSERT INTO accommodations (id, hotel, guests, checkin, checkout, room)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING id, hotel, guests, checkin, checkout, room",
+        payload.id,
+        payload.hotel,
+        payload.guests,
+        payload.checkin,
+        payload.checkout,
+        payload.room)
+        .fetch_one(&self.pool)
+        .await?;
+
+        Ok(inserted)
     }
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Accommodation>, Error> {
         // TODO: implementar usando sqlx
-        let accommodation = Accommodation::default();
-        /*
-        match sqlx::query_as!(Accommodation,"SELECT id, hotel, guests, checkin, checkout, room, charges as charges FROM accommodations WHERE id = $1", id)
+        match sqlx::query_as!(Accommodation,"SELECT * FROM accommodations WHERE id = $1", id)
         .fetch_optional(&self.pool)
         .await
         {
             Ok(accommodation) => Ok(accommodation),
             Err(err) => Err(Error::from(err))
         }
-        */
-        Ok(Some(accommodation))
     }
 
-    async fn delete(&mut self, id: Uuid) -> Result<(), Error> {
+    async fn delete(&self, id: Uuid) -> Result<(), Error> {
         let query_result = sqlx::query!("DELETE FROM accommodations WHERE id = $1", id)
             .execute(&self.pool)
             .await
@@ -49,7 +56,7 @@ impl Repository<Accommodation> for AccommodationRepository {
         Ok(())
     }
 
-    async fn patch(&mut self, id: Uuid, payload: Accommodation) -> Result<(), Error> {
+    async fn patch(&self, id: Uuid, payload: Accommodation) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }

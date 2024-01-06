@@ -11,32 +11,31 @@ pub struct InsuranceRepository {
 }
 
 impl InsuranceRepository {
-    pub fn new(pool: PgPool) -> Self {
+    pub fn new(pool: &PgPool) -> Self {
         InsuranceRepository {
-            pool: pool,
+            pool: pool.clone(),
         }
     }
 }
 
 #[async_trait]
 impl Repository<Travelinsurance> for InsuranceRepository {
-    async fn insert(&mut self, payload: Travelinsurance) -> Result<(), Error> {
+    async fn insert(&self, payload: Travelinsurance) -> Result<Travelinsurance, Error> {
         // TODO: implementar usando sqlx
-        Ok(())
+        Ok(Travelinsurance::default())
     }
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Travelinsurance>, Error> {
-        let insurance = Travelinsurance::default();
         // TODO: implementar usando sqlx
-        Ok(Some(insurance))
+        Ok(Some(Travelinsurance::default()))
     }
 
-    async fn delete(&mut self, id: Uuid) -> Result<(), Error> {
+    async fn delete(&self, id: Uuid) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }
 
-    async fn patch(&mut self, id: Uuid, payload: Travelinsurance) -> Result<(), Error> {
+    async fn patch(&self, id: Uuid, payload: Travelinsurance) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }

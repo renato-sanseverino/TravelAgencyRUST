@@ -1,6 +1,7 @@
 use uuid::Uuid;
 use chrono::NaiveDate;
 use bigdecimal::BigDecimal;
+use serde::{Serialize, Deserialize};
 use crate::utils::domainErrors::DomainError;
 
 
@@ -9,7 +10,7 @@ pub struct Charge {
     value: BigDecimal,
 }
 
-#[derive(Default, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Accommodation {
     pub id: Option<Uuid>,
     pub hotel: String,
@@ -17,18 +18,18 @@ pub struct Accommodation {
     pub checkin: NaiveDate,
     pub checkout: Option<NaiveDate>,
     pub room: Option<i32>,
-    pub charges: Vec<Charge>,
+    // pub charges: Vec<Charge>,
 }
 
 pub fn new_accommodation(hotel: String, guests: i32, checkin: NaiveDate, checkout: Option<NaiveDate>, room: Option<i32>) -> Result<Accommodation, DomainError> {
     let obj = Accommodation {
-        id: Some(Uuid::new_v4()),   // evitar a duplicação de registros com UUID
+        id: Some(Uuid::new_v4()),
         hotel,
         guests,
         checkin,
         checkout,
         room,
-        charges: Vec::new(),
+        // charges: Vec::new(),
     };
 
     if !obj.validate() {
@@ -38,6 +39,7 @@ pub fn new_accommodation(hotel: String, guests: i32, checkin: NaiveDate, checkou
 }
 
 impl Accommodation {
+    /*
     pub fn add_charge(&mut self, charge: Charge) -> Result<(), DomainError>{
         if self.charges.contains(&charge) {
             return Err(DomainError::DuplicationError)
@@ -51,6 +53,7 @@ impl Accommodation {
             self.charges.remove(index);
         }
     }
+    */
 
     pub fn validate(&self) -> bool {
         
