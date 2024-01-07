@@ -1,4 +1,4 @@
-use crate::utils::domainErrors::DomainError;
+use crate::utils::domain_error::DomainError;
 // use crate::domain::accommodation::Accommodation;
 
 

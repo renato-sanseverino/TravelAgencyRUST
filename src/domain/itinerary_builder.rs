@@ -7,8 +7,8 @@ pub struct Transport {
 }
 
 // Verifica a disponibilidade de voos na API de terceiros
-pub async fn consultar_disponibilidade(transport_kind: Transport, date: NaiveDate) {
-    let request_url: String = String::from("https:// ...  /api/ConsultaAereo/Consultar");
+pub async fn consultar_disponibilidade(_transport_kind: Transport, _date: NaiveDate) {
+    let _request_url: String = String::from("https:// ...  /api/ConsultaAereo/Consultar");
 
     //let request_obj = reqwest::Client::new().get(request_url);
     //let response = request_obj.send().await.unwrap();

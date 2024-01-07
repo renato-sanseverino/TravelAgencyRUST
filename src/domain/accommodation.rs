@@ -2,7 +2,7 @@ use uuid::Uuid;
 use chrono::NaiveDate;
 use bigdecimal::BigDecimal;
 use serde::{Serialize, Deserialize};
-use crate::utils::domainErrors::DomainError;
+use crate::utils::domain_error::DomainError;
 
 
 #[derive(PartialEq, Debug)]

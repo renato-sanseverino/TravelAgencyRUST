@@ -21,12 +21,15 @@ impl InsuranceRepository {
 #[async_trait]
 impl Repository<Travelinsurance> for InsuranceRepository {
     async fn insert(&self, payload: Travelinsurance) -> Result<Travelinsurance, Error> {
-        let inserted = sqlx::query_as!(Travelinsurance, "INSERT INTO travelinsurance (id, client_id, \"purposeOfTrip\")
-        VALUES ($1, $2, $3)
-        RETURNING id, client_id, \"purposeOfTrip\" as purpose_of_trip",
+        let inserted = sqlx::query_as!(Travelinsurance, "INSERT INTO travelinsurance (id, client_id, \"purposeOfTrip\", luggage, medical_cover, price_total)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING id, client_id, \"purposeOfTrip\" as purpose_of_trip, luggage, medical_cover, price_total",
         payload.id,
         payload.client_id,
-        payload.purpose_of_trip)
+        payload.purpose_of_trip,
+        payload.luggage,
+        payload.medical_cover,
+        payload.price_total)
         .fetch_one(&self.pool)
         .await?;
 
@@ -34,7 +37,7 @@ impl Repository<Travelinsurance> for InsuranceRepository {
     }
 
     async fn get_by_id(&self, id: Uuid) -> Result<Option<Travelinsurance>, Error> {
-        match sqlx::query_as!(Travelinsurance,"SELECT id, client_id, \"purposeOfTrip\" as purpose_of_trip FROM travelinsurance WHERE id = $1", id)
+        match sqlx::query_as!(Travelinsurance,"SELECT id, client_id, \"purposeOfTrip\" as purpose_of_trip, luggage, medical_cover, price_total FROM travelinsurance WHERE id = $1", id)
         .fetch_optional(&self.pool)
         .await
         {
@@ -52,7 +55,7 @@ impl Repository<Travelinsurance> for InsuranceRepository {
         Ok(query_result.rows_affected())
     }
 
-    async fn patch(&self, id: Uuid, payload: Travelinsurance) -> Result<(), Error> {
+    async fn patch(&self, _id: Uuid, _payload: Travelinsurance) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }

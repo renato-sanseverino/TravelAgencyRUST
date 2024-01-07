@@ -448,19 +448,6 @@ dependencies = [
  "num-bigint",
  "num-integer",
  "num-traits",
-]
-
-[[package]]
-name = "bigdecimal"
-version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c06619be423ea5bb86c95f087d5707942791a08a85530df0db2209a3ecfb8bc9"
-dependencies = [
- "autocfg",
- "libm",
- "num-bigint",
- "num-integer",
- "num-traits",
  "serde",
 ]
 
@@ -2009,7 +1996,7 @@ dependencies = [
  "async-io",
  "async-std",
  "atoi",
- "bigdecimal 0.3.1",
+ "bigdecimal",
  "byteorder",
  "bytes",
  "chrono",
@@ -2091,7 +2078,7 @@ checksum = "e37195395df71fd068f6e2082247891bc11e3289624bbc776a0cdfa1ca7f1ea4"
 dependencies = [
  "atoi",
  "base64",
- "bigdecimal 0.3.1",
+ "bigdecimal",
  "bitflags 2.4.1",
  "byteorder",
  "bytes",
@@ -2136,7 +2123,7 @@ checksum = "d6ac0ac3b7ccd10cc96c7ab29791a7dd236bd94021f31eec7ba3d46a74aa1c24"
 dependencies = [
  "atoi",
  "base64",
- "bigdecimal 0.3.1",
+ "bigdecimal",
  "bitflags 2.4.1",
  "byteorder",
  "chrono",
@@ -2382,7 +2369,7 @@ dependencies = [
  "actix-cors",
  "actix-web",
  "async-trait",
- "bigdecimal 0.4.2",
+ "bigdecimal",
  "chrono",
  "dotenv",
  "serde",

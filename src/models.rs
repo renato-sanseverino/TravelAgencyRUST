@@ -61,7 +61,7 @@ pub struct Travelinsurance {
     pub id: Option<Uuid>,
     pub client_id: Uuid,
     // #[sqlx(rename = "purposeOfTrip")]
-    pub purposeOfTrip: String,
+    pub purpose_of_trip: String,
     pub luggage: Option<BigDecimal>,
     pub medical_cover: Option<BigDecimal>,
     pub price_total: BigDecimal,

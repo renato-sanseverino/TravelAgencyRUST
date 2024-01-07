@@ -55,7 +55,7 @@ impl Repository<Accommodation> for AccommodationRepository {
         Ok(query_result.rows_affected())
     }
 
-    async fn patch(&self, id: Uuid, payload: Accommodation) -> Result<(), Error> {
+    async fn patch(&self, _id: Uuid, _payload: Accommodation) -> Result<(), Error> {
         // TODO: implementar usando sqlx
         Ok(())
     }
