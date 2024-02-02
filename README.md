@@ -17,3 +17,7 @@ Agência de viagens utilizando Rust e React
 - Set DATABASE_URL in the .env file
 - cargo run
 - follow the link  http://localhost:8080/api/itineraries
+
+## Deploy the project to a Kubernetes cluster
+- Run
+    > kubectl apply -f deploy/travelagency.yaml
